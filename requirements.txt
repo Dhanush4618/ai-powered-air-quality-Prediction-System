@@ -1,0 +1,32 @@
+def get_input_data(): 
+print("Enter the dataset row-by-row as comma-separated values (e.g., 
+Sunny,Warm,Normal,Strong,Warm,Same,Yes).") 
+print("Enter an empty line to finish.\n") 
+dataset = [] 
+while True: 
+row = input("Enter example: ").strip() 
+if not row: 
+break 
+parts = row.split(",") 
+dataset.append(parts) 
+return dataset 
+def find_s_algorithm(data): 
+print("\n=== Find-S Algorithm ===") 
+hypothesis = None 
+for row in data: 
+*attributes, label = row 
+if label.lower() == "yes": 
+if hypothesis is None: 
+hypothesis = attributes.copy() 
+else: 
+for i in range(len(attributes)): 
+if hypothesis[i] != attributes[i]: 
+hypothesis[i] = '?' 
+print("Final Hypothesis (Find-S):", hypothesis) 
+return hypothesis 
+def more_general(h1, h2): 
+more_general_parts = [] 
+for x, y in zip(h1, h2): 
+mg = x == '?' or (x != y and x != '0') 
+more_general_parts.append(mg) 
+return all(more_general_parts) 
